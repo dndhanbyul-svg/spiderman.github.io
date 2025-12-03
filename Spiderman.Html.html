@@ -1,0 +1,383 @@
+
+
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SPIDERMAN — 레이아웃 활용 페이지</title>
+
+  <style>
+    /* 기본 리셋 */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{
+      height:100%;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
+      color:#222;
+      background:#f4f6fb;
+    }
+
+    /* 상단 네비게이션 */
+    .nav{
+      background:#141414;
+      padding:14px 20px;
+      display:flex;
+      justify-content:center;
+      border-bottom:3px solid #d6002f;
+    }
+    .nav .tabs{display:flex;gap:12px}
+    .nav button{
+      background:#1f1f1f;
+      color:#fff;
+      border:none;
+      padding:10px 18px;
+      border-radius:6px;
+      cursor:pointer;
+      font-size:14px;
+      transition:.25s;
+    }
+    .nav button.active{
+      background:#d6002f;
+      color:#fff;
+      transform:translateY(-2px);
+    }
+    .nav button:hover{
+      background:#d6002f;
+    }
+
+    /* 컨테이너 */
+    .container{max-width:1100px;margin:36px auto;padding:0 20px}
+
+    /* 소개 섹션 */
+    .intro{display:flex;gap:28px;align-items:flex-start}
+    .intro .thumb{width:320px;flex:0 0 320px}
+    .intro .thumb img{
+      width:100%;
+      display:block;
+      border:6px solid #fff;
+      border-radius:8px;
+      box-shadow:0 8px 25px rgba(0,0,0,0.22);
+    }
+
+    .intro .desc{flex:1}
+    .intro h2{
+      font-size:26px;
+      margin-bottom:12px;
+      font-weight:800;
+      color:#d6002f;
+    }
+    .intro p{line-height:1.6;color:#444}
+    .btn{
+      display:inline-block;
+      margin-top:16px;
+      padding:10px 16px;
+      border-radius:6px;
+      border:2px solid #d6002f;
+      background:#fff;
+      color:#d6002f;
+      font-weight:600;
+      transition:.25s;
+      text-decoration:none;
+    }
+    .btn:hover{
+      background:#d6002f;
+      color:#fff;
+      transform:translateY(-2px);
+    }
+
+    /* 썸네일 */
+    .thumb-row{display:flex;gap:12px;margin-top:22px}
+    .thumb-row img{
+      width:100%;
+      height:70px;
+      object-fit:cover;
+      border:4px solid #fff;
+      border-radius:6px;
+      box-shadow:0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    /* 히어로 섹션 */
+    .hero{
+      background:linear-gradient(135deg,#004b8d,#0a2342);
+      padding:80px 0;
+      position:relative;
+      overflow:hidden;
+      text-align:center;
+    }
+    .hero .large-text{
+      font-size:120px;
+      font-weight:900;
+      color:rgba(255,255,255,0.08);
+      letter-spacing:12px;
+      animation:fadeDown 1.8s ease forwards;
+    }
+    .hero p{
+      margin-top:10px;
+      font-size:16px;
+      color:#d0e8ff;
+      animation:fadeUp 2s ease forwards;
+    }
+    .hero .center-image{
+      max-width:680px;
+      margin:50px auto 0;
+      animation:floatUp 2s ease forwards;
+    }
+    .hero .center-image img{
+      width:100%;
+      filter:drop-shadow(0 20px 40px rgba(0,0,0,0.45));
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0; transform:translateY(40px);}
+      to{opacity:1; transform:translateY(0);}
+    }
+    @keyframes fadeDown{
+      from{opacity:0; transform:translateY(-50px);}
+      to{opacity:1; transform:translateY(0);}
+    }
+    @keyframes floatUp{
+      from{opacity:0; transform:translateY(80px);}
+      to{opacity:1; transform:translateY(0);}
+    }
+
+    /* 카드 그리드 */
+    .category{background:#fff;padding:56px 20px;text-align:center}
+    .category h3{
+      margin-bottom:22px;
+      color:#333;
+      font-size:22px;
+      font-weight:700;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:24px;
+    }
+
+    /* SPIDER-MAN 카드 스타일 강화 */
+    .card{
+      background:#ffffff;
+      padding:18px;
+      border-radius:10px;
+      border:2px solid #004b8d;
+      transition:.25s;
+      box-shadow:0 4px 8px rgba(0,0,0,0.08);
+    }
+    .card:hover{
+      transform:translateY(-6px);
+      border-color:#d6002f;
+      box-shadow:0 8px 24px rgba(214,0,47,0.35);
+    }
+    .card img{
+      width:100%;
+      height:150px;
+      object-fit:cover;
+      border-radius:6px;
+    }
+    .card .label{
+      margin-top:12px;
+      font-weight:700;
+      color:#0a2342;
+    }
+
+    /* 필름/무비 자동 슬라이드 */
+    .film-slider{
+      margin-top:50px;
+      overflow:hidden;
+      position:relative;
+    }
+    .film-track{
+      display:flex;
+      animation:scrollFilm 16s linear infinite;
+      gap:22px;
+    }
+    @keyframes scrollFilm{
+      from{transform:translateX(0);}
+      to{transform:translateX(-50%);}
+    }
+    .film-item{
+      min-width:260px;
+      background:#fff;
+      padding:16px;
+      border-radius:10px;
+      border:2px solid #004b8d;
+      box-shadow:0 4px 8px rgba(0,0,0,0.12);
+      text-align:center;
+      transition:.3s;
+    }
+    .film-item img{
+      width:100%;
+      height:150px;
+      object-fit:cover;
+      border-radius:6px;
+    }
+    .film-item:hover{
+      transform:translateY(-6px);
+      border-color:#d6002f;
+    }
+
+    /* 갤러리 확장 */
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin-top:40px;
+    }
+    .gallery img{
+      width:100%;
+      height:260px;
+      border-radius:8px;
+      object-fit:cover;
+      transition:.3s;
+      box-shadow:0 6px 14px rgba(0,0,0,0.22);
+    }
+    .gallery img:hover{
+      transform:scale(1.04);
+      box-shadow:0 8px 22px rgba(214,0,47,0.35);
+    }
+
+    /* 반응형 개선 */
+    @media(max-width:900px){
+      .intro{flex-direction:column;align-items:center}
+      .hero .large-text{font-size:80px}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .gallery{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:480px){
+      .grid{grid-template-columns:repeat(1,1fr)}
+      .gallery{grid-template-columns:repeat(1,1fr)}
+      .hero .large-text{font-size:48px}
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="nav">
+    <div class="tabs">
+      <button class="active">소개</button>
+      <a href="#category" class="button"><button>시리즈</button></a>
+      <a href="#container" class="button"><button>갤러리</button></a>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="intro">
+      <div class="thumb">
+        <div><img src="img/spider-man 3.png" alt=""></div>
+      </div>
+
+      <div class="desc">
+        <h2>SPIDER-MAN</h2>
+        <p>역대 스파이더맨과 시리즈를 한눈에 볼 수 있는 아카이브 페이지입니다.</p>
+        <a href="#category" class="btn">자세히 보기</a>
+
+        <div class="thumb-row">
+          <div><img src="img/Toby.jpg" alt=""></div>
+          <div><img src="img/andrew.jpg" alt=""></div>
+          <div><img src="img/tom.jpg" alt=""></div>
+          
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 히어로 -->
+  <section class="hero">
+    <div class="large-text">SPIDERMAN</div>
+    <p>역대 시리즈, 배우, 트릴로지 정리</p>
+    <div class="center-image">
+      <div><img src="img/g.jpg" alt=""></div>
+    </div>
+  </section>
+
+  <!-- 카테고리 -->
+  <section id="category" class="category">
+    
+
+    <div class="grid">
+      <div class="card"><div><img src="img/트릴로지.jpg" alt=""></div><div class="label">스파이더맨 트릴로지</div></div>
+      <div class="card"><div><img src="img/andrew 2.webp" alt=""></div><div class="label">어메이징 스파이더맨</div></div>
+      <div class="card"><div><img src="img/어스파2.jpg" alt=""></div><div class="label">어메이징 스파이더맨 2</div></div>
+      <div class="card"><div><img src="img/tom 2.webp" alt=""></div><div class="label">MCU 스파이더맨</div></div>
+    </div>
+
+    <!-- 필름 자동 슬라이드 -->
+    <div class="film-slider">
+      <div class="film-track">
+        <div class="film-item"><div><img src="img/spiderman 1.png" alt=""></div><p>SPIDER-MAN 1</p></div>
+        <div class="film-item"><img src="Img/spiderman 2.png"><p>SPIDER-MAN 2</p></div>
+        <div class="film-item"><img src="Img/spiderman 3.png"><p>SPIDER-MAN 3</p></div>
+        <div class="film-item"><img src="Img/a spiderman 1.jpg"><p>Amazing SM</p></div>
+        <div class="film-item"><img src="Img/a spiderman 2.jpg"><p>Amazing SM 2</p></div>
+        <div class="film-item"><img src="Img/spiderman home.png"><p>Homecoming</p></div>
+        <div class="film-item"><img src="img/spiderman far.jpg"><p>Far From Home</p></div>
+        <div class="film-item"><div><img src="img/spiderman no.jpg" alt=""><p>No Way Home</p></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 갤러리 -->
+
+  <section id="container" class="container">
+    <div class="gallery">
+      <div><img src="img/e.jpg" alt=""></div>
+      <div><img src="img/f.webp" alt=""></div>
+      <div><img src="img/g.webp" alt=""></div>
+      <div><img src="img/a.jpg" alt=""></div>
+      <div><img src="img/d.jpg" alt=""></div>
+      <div><img src="img/c.jpg" alt=""></div>
+    </div>
+  </section>
+
+  <h2>🕷️ Spider-Man</h2> <br>
+
+<h3>스파이더맨은 마블 코믹스의 대표 슈퍼히어로로, 뉴욕을 지키는 평범한 고등학생 피터 파커가 거미에 물린 후 특별한 능력을 갖게 되면서 시작됩니다.
+그의 이야기는 여러 시대와 배우를 거쳐 다양한 영화 시리즈로 제작되었으며, 각 시리즈마다 독특한 해석과 연출로 팬들에게 사랑받아왔습니다.</h2>
+<br>
+<h2> 
+🕷️ 토비 맥과이어 시리즈 (2002–2007)</h2> <br>
+
+<h3>영화: Spider-Man (2002), Spider-Man 2 (2004), Spider-Man 3 (2007) <br>
+
+배우: Tobey Maguire <br>
+
+특징: 초기 2000년대 스파이더맨 영화. 피터 파커의 성장과 인간적 갈등에 초점. 고전적인 액션과 감성적인 스토리로 큰 사랑을 받음. <br>
+
+대표 장면: 뉴욕 시내를 거미줄로 누비는 장면, 닥터 옥토퍼스와의 대결 등</h3> <br>
+<br>
+<h2> 🕷️ 어메이징 스파이더맨 시리즈 (2012–2014)</h2><br>
+
+<h3>영화: The Amazing Spider-Man (2012), The Amazing Spider-Man 2 (2014) <br>
+
+배우: Andrew Garfield <br>
+
+특징: 현대적인 해석과 액션 강조. 고등학생 시절부터 시작해 연애와 개인적 고뇌까지 다룸. 전작보다 빠르고 다이내믹한 액션 장면이 특징. <br>
+
+대표 장면: 전기 능력을 가진 일렉트로와의 대결, 고공 액션 장면</h3> <br>
+<br>
+<h2> 🕷️ MCU 스파이더맨 시리즈 (2016–현재)</h2><br>
+
+<h3>영화: Spider-Man: Homecoming (2017), Spider-Man: Far From Home (2019), Spider-Man: No Way Home (2021) <br>
+
+배우: Tom Holland <br>
+
+특징: 마블 시네마틱 유니버스(MCU) 속 스파이더맨. 유머와 팀워크 중심, 다른 MCU 캐릭터들과의 연계가 돋보임. <br>
+
+대표 장면: 멀티버스 등장, 아이언 스파이더 수트 착용, 다중 스파이더맨 장면 </h3>
+<br>
+<h2>🕷️ 스파이더맨 배우 총정리</h2> <br>
+
+<h3>Tobey Maguire:	2002–2007	클래식, 인간적 갈등, 초기 스파이더맨<br>
+Andrew Garfield:	2012–2014	현대적, 다이내믹 액션, 연애 중심<br>
+Tom Holland:	2016–현재	MCU, 유머 & 팀워크, 멀티버스</h3><br>
+
+  <footer>
+    <div class="foot-inner">
+      © 2025 Spider-Archive 
+    </div>
+  </footer>
+
+</body>
+</html>
